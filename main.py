@@ -17,8 +17,6 @@ cor10 = "#fcfbf7" #branco
 cor11 = "#4B0082" #Indigo
 fundo = "#8A2BE2" #BlueVioliet
 
-
-
 #Criando janela principal
 
 janela = Tk()
@@ -46,7 +44,6 @@ app_x = Label(
     font=('Ivy 40 italic bold'), 
     bg=cor11, fg=cor4)
 app_x.place(x=25, y=10)
-
 
 app_x = Label(
     frame_cima, 
@@ -565,13 +562,8 @@ def iniciar_jogo():
         relief='raise',
         bg=fundo, fg=cor0)
         b_jogar.place(x=84, y=220)
-        
 
-
-
-
-
-
+    
     #linhas verticais-----------------------------------------------------------------------------------
     app_linha1 = Label(
         frame_baixo, 
