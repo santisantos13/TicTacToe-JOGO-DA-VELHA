@@ -17,6 +17,8 @@ cor10 = "#fcfbf7" #branco
 cor11 = "#4B0082" #Indigo
 fundo = "#8A2BE2" #BlueVioliet
 
+
+
 #Criando janela principal
 
 janela = Tk()
@@ -44,6 +46,7 @@ app_x = Label(
     font=('Ivy 40 italic bold'), 
     bg=cor11, fg=cor4)
 app_x.place(x=25, y=10)
+
 
 app_x = Label(
     frame_cima, 
@@ -392,9 +395,6 @@ def iniciar_jogo():
                 #incrementa o contador pra próxima rodada
                 contador +=1
             
-        #após o contador ser maior ou igual a 5, 
-        #verifica se ouve algum vencedor
-        #de acordo com os padroes seguintes da tabela
         if contador>=5:
             
             #linhas
@@ -421,26 +421,17 @@ def iniciar_jogo():
             
             #empate
             if contador >= 9:
-                vencedor('EMPATE!')    
-
-
+                vencedor('EMPATE!')
+        
 #---------------------------------------------------------------------------------------------
     #definir o ganhador
     def vencedor(i):
-        global jogando
         global score_1
         global score_2
+        global tabela
+        global contador_de_rodada
+        global contador
 
-        #limpando os botões
-        b_0['text'] = ''
-        b_1['text'] = ''
-        b_2['text'] = ''
-        b_3['text'] = ''
-        b_4['text'] = ''
-        b_5['text'] = ''
-        b_6['text'] = ''
-        b_7['text'] = ''
-        b_8['text'] = ''
 
         #desabilitando os botões
         b_0['state'] = 'disable'
@@ -455,7 +446,7 @@ def iniciar_jogo():
 
 
         app_vencedor = Label(
-            frame_baixo, text='VENCEDOR', width=18,
+            frame_baixo, text='', width=18,
             relief='flat',
             anchor='center',
             font=('Ivy 13 italic bold'),
@@ -466,15 +457,27 @@ def iniciar_jogo():
             score_2+=1
             app_vencedor['text']= 'Jogador 2 VENCEU!'
             app_0_pontos['text'] = score_2
+        
         if i == 'O':
-            score_2=+1
+            score_1=+1
             app_vencedor['text'] = 'Jogador 1 VENCEU!'
             app_x_pontos['text'] = score_1
 
         if i == 'EMPATE!':
-            app_vencedor['text'] = 'EMPATE'
+            app_vencedor['text'] = 'EMPATE!'
 
         def start():
+            #limpando os botões
+            b_0['text'] = ''
+            b_1['text'] = ''
+            b_2['text'] = ''
+            b_3['text'] = ''
+            b_4['text'] = ''
+            b_5['text'] = ''
+            b_6['text'] = ''
+            b_7['text'] = ''
+            b_8['text'] = ''
+
             b_0['state'] = 'normal'
             b_1['state'] = 'normal'
             b_2['state'] = 'normal'
@@ -484,13 +487,16 @@ def iniciar_jogo():
             b_6['state'] = 'normal'
             b_7['state'] = 'normal'
             b_8['state'] = 'normal'
+
             app_vencedor.destroy()
             b_jogar.destroy()
-        
+
+    
+        #botao proxima rodada
         b_jogar = Button(
         frame_baixo,
         command=start,
-        text='JOGAR', 
+        text='PRÓXIMA', 
         width=10,  
         font=('Ivy 10 bold italic'),
         overrelief=RIDGE,
@@ -503,8 +509,21 @@ def iniciar_jogo():
             app_vencedor.destroy()
 
             encerrar()
+        
+        if contador_de_rodada >= 5:
+            GameOver()
+        else:
+            contador_de_rodada += 1
+           
+            #reinicia a tabela
+            tabela = [   
+                ['1','2','3'],
+                ['4','5','6'],
+                ['7','8','9']
+            ]
+            contador = 0
 
-   
+    
     #encerrar o jogo
     def encerrar():
         global tabela
@@ -543,10 +562,10 @@ def iniciar_jogo():
 
         #Jogar novamente
         def jogar_novamente():
-            app_0_pontos['text'] = 0
             app_x_pontos['text'] = 0
-            app_GameOver.destroy
-            b_jogar.destroy
+            app_0_pontos['text'] = 0
+            app_GameOver.destroy()
+            b_jogar.destroy()
 
             #Chamando a funcão iniciar o jogo
             iniciar_jogo()
@@ -562,8 +581,8 @@ def iniciar_jogo():
         relief='raise',
         bg=fundo, fg=cor0)
         b_jogar.place(x=84, y=220)
+        
 
-    
     #linhas verticais-----------------------------------------------------------------------------------
     app_linha1 = Label(
         frame_baixo, 
