@@ -1,2 +1,3 @@
-# TicTacToe-JOGO-DA-VELHA
-Jogo da velha em Python com tkinter 
+JOGO DA VELHA
+Um projetinho que fiz vendo uma videoaula no youtube, para me exercitar.
+
